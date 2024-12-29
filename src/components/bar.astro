@@ -1,19 +1,28 @@
 ---
 import { Icon } from 'astro-icon/components'
 ---
-<div class="bg-slate-800/60 w-full h-10 rounded-full flex">
-    <div class="bg-slate-800 rounded-full m-1 px-5 content-center group transition-all hover:bg-slate-700">
+<script>
+    function toggleBar(){
+        document.getElementById('bar').className+=' -translate-x-40'
+    }
+</script>
+<div id="bar" class="bg-slate-800/60 h-10 rounded-full flex max-w-min absolute bottom-1 left-1 transition-all before:-translate-x-40">
+    <div class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700">
         <Icon name="akar-icons:three-line-horizontal" class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"/>
         
     </div>
-    <div class="grow"></div>
-    <div class="bg-slate-800 rounded-full m-1 px-5 content-center group transition-all hover:bg-slate-700">
+    
+    <div class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700">
         <Icon name="akar-icons:circle-plus" class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"/>
         
     </div>
-    <div class="grow"></div>
-    <div class="bg-slate-800 rounded-full m-1 px-5 content-center group transition-all hover:bg-slate-700">
+    
+    <div class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700">
         <Icon name="akar-icons:gear" class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"/>
+        
+    </div>
+    <div class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700" onclick="toggleBar()">
+        <Icon name="akar-icons:chevron-left-small" class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"/>
         
     </div>
 </div>

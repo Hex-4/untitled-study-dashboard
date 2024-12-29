@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/base.astro';
-import Bar from '../components/bar.astro';
+import Bar from '../components/bar.svelte';
 ---
 
 <BaseLayout>
 	<div class="min-w-screen min-h-screen bg-gradient-to-bl from-sky-500 via-blue-700 to-indigo-700 p-1">
-		<Bar />
+		<Bar client:idle/>
 	</div>
 </BaseLayout>
 

@@ -13,6 +13,7 @@
     "@astrojs/svelte": "^7.0.2",
     "@astrojs/tailwind": "^5.1.4",
     "@iconify-json/akar-icons": "^1.2.2",
+    "@neodrag/svelte": "^2.2.0",
     "astro": "^5.1.1",
     "astro-icon": "^1.1.5",
     "lucide-svelte": "^0.469.0",

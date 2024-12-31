@@ -2,15 +2,13 @@
 import BaseLayout from '../layouts/base.astro';
 import Bar from '../components/bar.svelte';
 import Pomodoro from '../components/widgets/pomodoro.svelte';
+import WidgetMaker from '../components/widget_maker.svelte';
 ---
 
 <BaseLayout>
 	<div class="min-w-screen min-h-screen bg-gradient-to-bl from-sky-500 via-blue-700 to-indigo-700 p-1">
 		<Bar client:idle/>
-		<Pomodoro client:idle/>
-		<Pomodoro client:idle/>
-		<Pomodoro client:idle/>
-		<Pomodoro client:idle/>
+		<WidgetMaker client:idle/>
 	</div>
 </BaseLayout>
 

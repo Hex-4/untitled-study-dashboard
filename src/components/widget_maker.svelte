@@ -1,21 +1,15 @@
 <script>
-    import { Workspace } from "../widgets.svelte.js"
+    import { Workspace } from "../widgets.svelte.js";
 
     // Import all widgets :3
     import Pomodoro from "./widgets/pomodoro.svelte";
 
     // there has to be a better way
     let components = {
-        'pomodoro': Pomodoro,
-    }
-    
+        pomodoro: Pomodoro,
+    };
 
-
-    
-
-
-
-
+    $inspect(Workspace.widgets);
 </script>
 
 <div>
@@ -24,4 +18,3 @@
         <Component id={widget.id} />
     {/each}
 </div>
-

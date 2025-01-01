@@ -1,10 +1,6 @@
-
-
 export const Workspace = $state({
-	widgets: [],
+    widgets: [],
 });
-
-
 
 export class Widget {
     name = "";
@@ -12,5 +8,5 @@ export class Widget {
     constructor(name, component) {
         this.name = name;
         this.id = this.name + "-" + Workspace.widgets.length;
-    };
+    }
 }

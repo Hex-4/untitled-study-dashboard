@@ -1,10 +1,11 @@
 <script>
     import { X, Bolt } from "lucide-svelte";
-    import { draggable } from "@neodrag/svelte";
 
     import { Workspace } from "../../widgets.svelte";
 
     import { scale } from "svelte/transition";
+
+    import { drag } from "../../subjx-svelte.svelte.js";
 
     let { id, disabled = false } = $props();
 
@@ -23,13 +24,10 @@
 
 <!-- Interactive -->
 <div
-    use:draggable={{
-        handle: "#topbar",
-        defaultClassDragging: "transition-none",
-    }}
-    class="bg-slate-800/80 p-8 outline outline-1 outline-slate-600 rounded-2xl flex absolute transition-all before:transition-none backdrop-blur-sm group top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 {disabled &&
+    class="widget bg-slate-800/80 p-8 outline outline-1 outline-slate-600 rounded-2xl flex absolute before:transition-none backdrop-blur-sm group {disabled &&
         'hidden'}"
     {id}
+    use:drag
     bind:this={me}
     transition:scale={{ duration: 300 }}
 >

@@ -1,5 +1,7 @@
 <script>
     import { Workspace } from "../widgets.svelte.js";
+    import subjx from "subjx";
+    import "subjx/dist/style/subjx.css";
 
     // Import all widgets :3
     import Pomodoro from "./widgets/pomodoro.svelte";

@@ -7,9 +7,9 @@ import WidgetMaker from "../components/widget_maker.svelte";
 
 <BaseLayout>
     <div
-        class="min-w-screen min-h-screen bg-gradient-to-bl from-sky-500 via-blue-700 to-indigo-700 p-1"
+        class="min-w-screen min-h-screen bg-gradient-to-bl from-sky-500 via-blue-700 to-indigo-700 p-1 background"
     >
-        <Bar client:idle />
-        <WidgetMaker client:idle />
+        <Bar client:only />
+        <WidgetMaker client:only />
     </div>
 </BaseLayout>

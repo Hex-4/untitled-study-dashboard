@@ -1,5 +1,6 @@
 export const Workspace = $state({
     widgets: [],
+    draggables: [],
 });
 
 export class Widget {

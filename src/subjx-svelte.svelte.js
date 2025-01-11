@@ -1,5 +1,6 @@
 import subjx from "subjx";
 import "subjx/dist/style/subjx.css";
+import { Workspace } from "./widgets.svelte";
 
 export function drag(node) {
     const xElem = subjx(node);
@@ -7,10 +8,16 @@ export function drag(node) {
         scalable: true,
         proportions: true,
     });
+    Workspace.draggables.push(xDraggable);
 
     return {
         destroy() {
             xDraggable.disable();
+            const index = Workspace.draggables.indexOf(xDraggable);
+            if (index > -1) {
+                // only splice array when item is found
+                Workspace.draggables.splice(index, 1); // 2nd parameter means remove one item only
+            }
         },
     };
 }

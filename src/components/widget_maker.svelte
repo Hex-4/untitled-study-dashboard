@@ -12,6 +12,7 @@
     };
 
     $inspect(Workspace.widgets);
+    $inspect(Workspace.draggables);
 </script>
 
 <div>

@@ -8,6 +8,9 @@ export function drag(node) {
         scalable: true,
         proportions: true,
     });
+    if (Workspace.editMode == false) {
+        xDraggable.disable();
+    }
     Workspace.draggables.push(xDraggable);
 
     return {

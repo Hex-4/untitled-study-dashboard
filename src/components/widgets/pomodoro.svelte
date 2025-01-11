@@ -31,25 +31,16 @@
     bind:this={me}
     transition:scale={{ duration: 300 }}
 >
-    <div
-        id="topbar"
-        class="min-w-full absolute top-0 left-0 h-8 bg-slate-800 rounded-t-2xl flex px-2"
+    <button
+        class="group/button absolute -top-10 bg-slate-800/60 backdrop-blur-sm aspect-square rounded-full content-center size-8 outline outline-1 outline-slate-600 {!Workspace.editMode &&
+            'hidden'}"
+        onclick={close}
     >
-        <button class="group/button">
-            <Bolt
-                class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2] group-hover/button:rotate-[60deg]"
-            />
-        </button>
-
-        <div class="grow"></div>
-
-        <button class="group/button" onclick={close}>
-            <X
-                class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
-            />
-        </button>
-    </div>
-    <div class="flex content-center w-full mt-6">
+        <X
+            class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
+        />
+    </button>
+    <div class="flex content-center w-full h-full">
         <h1 class="text-7xl font-mono font-bold text-slate-100">00:49</h1>
     </div>
 </div>

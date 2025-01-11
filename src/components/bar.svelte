@@ -13,7 +13,6 @@
 
     let barOpen = $state(true);
     let PickerOpen = $state(false);
-    let editMode = $state(true);
 
     function toggleBar() {
         barOpen = !barOpen;
@@ -27,14 +26,15 @@
     }
 
     function toggleEditMode() {
-        editMode = !editMode;
+        Workspace.editMode = !Workspace.editMode;
         Workspace.draggables.forEach((i) => {
-            if (editMode == true) {
+            if (Workspace.editMode == true) {
+                i.disable();
                 i.enable({
                     scalable: true,
                     proportions: true,
                 });
-            } else if (editMode == false) {
+            } else if (Workspace.editMode == false) {
                 i.disable();
             }
         });
@@ -58,7 +58,7 @@
         class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700"
         onclick={toggleEditMode}
     >
-        {#if editMode}
+        {#if Workspace.editMode}
             <Pencil
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"
             />

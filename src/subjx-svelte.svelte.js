@@ -1,5 +1,5 @@
 import subjx from "subjx";
-import "subjx/dist/style/subjx.css";
+import "./subjx.css";
 import { Workspace } from "./widgets.svelte";
 
 export function drag(node) {

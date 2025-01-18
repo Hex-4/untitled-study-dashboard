@@ -2,6 +2,7 @@
     import { Workspace } from "../widgets.svelte.js";
     import subjx from "subjx";
     import "subjx/dist/style/subjx.css";
+    import SettingsBox from "./settings/settings_box.svelte";
 
     // Import all widgets :3
     import Pomodoro from "./widgets/pomodoro.svelte";

@@ -1,5 +1,5 @@
 <script>
-    import { Workspace } from "../widgets.svelte.js";
+    import { Workspace } from "../widgets.svelte.ts";
     import subjx from "subjx";
     import "subjx/dist/style/subjx.css";
     import SettingsBox from "./settings/settings_box.svelte";
@@ -14,6 +14,7 @@
 
     $inspect(Workspace.widgets);
     $inspect(Workspace.draggables);
+    $inspect(Workspace.settings);
 </script>
 
 <div>
@@ -21,4 +22,7 @@
         {@const Component = components[widget.name]}
         <Component id={widget.id} />
     {/each}
+    {#if Workspace.settingsOpen}
+        <SettingsBox bind:open={Workspace.settingsOpen} />
+    {/if}
 </div>

@@ -5,7 +5,7 @@
         Workspace,
         BooleanSetting,
         NumericalSetting,
-    } from "../../widgets.svelte.js";
+    } from "../../widgets.svelte.ts";
 
     import SettingsBox from "../settings/settings_box.svelte";
 
@@ -18,6 +18,37 @@
     let me: HTMLDivElement;
     let text: HTMLElement;
 
+    let mySettings = [];
+    mySettings.push(
+        new NumericalSetting(
+            "Work time (m)",
+            "How long work sessions are, in minutes.",
+            20,
+        ),
+    );
+    mySettings.push(
+        new NumericalSetting(
+            "Short break time (m)",
+            "How long short breaks are, in minutes.",
+            7,
+        ),
+    );
+    mySettings.push(
+        new NumericalSetting(
+            "Long break time (m)",
+            "How long long breaks are, in minutes.",
+            15,
+        ),
+    );
+
+    let currentSettings = $derived.by(() => {
+        if (Workspace.settingsOwnerId == me.id) {
+            return Workspace.settings;
+        } else {
+            return mySettings;
+        }
+    });
+
     let SettingsOpen: boolean = $state(false);
 
     function close() {
@@ -28,11 +59,17 @@
             // only splice array when item is found
             Workspace.widgets.splice(index, 1); // 2nd parameter means remove one item only
         }
+        if (Workspace.settingsOwnerId == me.id) {
+            Workspace.settingsOpen = false;
+        }
     }
 
     // Timer logic
-    function startTimer(mins) {
+    function startTimer() {
         if (!disabled) {
+            let mins: Number = currentSettings.find(
+                (s) => s.name === "Work time (m)",
+            ).value;
             var start = Date.now();
             setInterval(function () {
                 if (text) {
@@ -52,8 +89,10 @@
         }
     }
 
-    function makeSettings() {
-        let mySettings = [];
+    function openSettings() {
+        Workspace.settings = mySettings;
+        Workspace.settingsOpen = true;
+        Workspace.settingsOwnerId = me.id;
     }
 </script>
 
@@ -75,10 +114,7 @@
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
             />
         </button>
-        <button
-            class="group/button"
-            onclick={() => (SettingsOpen = !SettingsOpen)}
-        >
+        <button class="group/button" onclick={openSettings}>
             <Bolt
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
             />

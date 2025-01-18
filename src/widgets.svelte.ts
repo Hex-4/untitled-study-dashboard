@@ -3,6 +3,7 @@ export const Workspace = $state({
     draggables: [],
     editMode: false,
     settingsOpen: false,
+    settingsOwnerId: null,
     settings: [],
 });
 

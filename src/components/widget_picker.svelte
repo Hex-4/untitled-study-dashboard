@@ -5,7 +5,7 @@
     let { open = $bindable() } = $props();
     import { slide } from "svelte/transition";
 
-    import { Workspace, Widget } from "../widgets.svelte";
+    import { Workspace, Widget } from "../widgets.svelte.ts";
 
     function newWidget(name) {
         let widget = new Widget(name);

@@ -9,7 +9,7 @@
         PencilOff,
     } from "lucide-svelte";
     import WidgetPicker from "./widget_picker.svelte";
-    import { Workspace, Widget } from "../widgets.svelte.js";
+    import { Workspace, Widget } from "../widgets.svelte.ts";
 
     let barOpen = $state(true);
     let PickerOpen = $state(false);

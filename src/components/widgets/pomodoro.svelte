@@ -13,10 +13,20 @@
 
     import { drag } from "../../subjx-svelte.svelte.js";
 
+    import { onMount } from "svelte";
+
     let { id, disabled = false } = $props();
 
     let me: HTMLDivElement;
     let text: HTMLElement;
+
+    onMount(() => {
+        text.innerText = timeToText(
+            currentSettings.find((s) => s.name === "Work time (m)").value *
+                60 *
+                1000,
+        );
+    });
 
     let mySettings = [];
     mySettings.push(
@@ -67,7 +77,7 @@
     // Timer logic
     function startTimer() {
         if (!disabled) {
-            let mins: Number = currentSettings.find(
+            let mins: number = currentSettings.find(
                 (s) => s.name === "Work time (m)",
             ).value;
             var start = Date.now();
@@ -76,17 +86,20 @@
                     var delta = Date.now() - start; // milliseconds elapsed since start
                     const total = mins * 60 * 1000; //
                     let remaining = total - delta;
-                    let minutes = Math.floor(remaining / 60000);
-                    let seconds = Math.floor(
-                        (remaining - minutes * 60000) / 1000,
-                    );
-                    text.innerText =
-                        minutes.toString().padStart(2, "0") +
-                        ":" +
-                        seconds.toString().padStart(2, "0");
+                    text.innerText = timeToText(remaining);
                 }
             }, 100);
         }
+    }
+
+    function timeToText(remaining: number) {
+        let minutes = Math.floor(remaining / 60000);
+        let seconds = Math.floor((remaining - minutes * 60000) / 1000);
+        return (
+            minutes.toString().padStart(2, "0") +
+            ":" +
+            seconds.toString().padStart(2, "0")
+        );
     }
 
     function openSettings() {
@@ -137,7 +150,7 @@
     >
         <button
             class="content-center ml-2 p-0.5 rounded-full px-2 group/button bg-slate-700 my-auto"
-            onclick={() => startTimer(1.5)}
+            onclick={startTimer}
         >
             <Play
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"

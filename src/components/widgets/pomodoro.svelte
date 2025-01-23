@@ -51,28 +51,9 @@
         ),
     );
 
-    let currentSettings = $derived.by(() => {
-        if (Workspace.settingsOwnerId == me.id) {
-            return Workspace.settings;
-        } else {
-            return mySettings;
-        }
-    });
 
-    let SettingsOpen: boolean = $state(false);
 
-    function close() {
-        let index = Workspace.widgets.indexOf(
-            Workspace.widgets.find((widget) => widget.id === me.id),
-        );
-        if (index > -1) {
-            // only splice array when item is found
-            Workspace.widgets.splice(index, 1); // 2nd parameter means remove one item only
-        }
-        if (Workspace.settingsOwnerId == me.id) {
-            Workspace.settingsOpen = false;
-        }
-    }
+
 
     // Timer logic
     function startTimer() {
@@ -102,11 +83,7 @@
         );
     }
 
-    function openSettings() {
-        Workspace.settings = mySettings;
-        Workspace.settingsOpen = true;
-        Workspace.settingsOwnerId = me.id;
-    }
+
 </script>
 
 <!-- Interactive -->
@@ -127,7 +104,7 @@
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
             />
         </button>
-        <button class="group/button" onclick={openSettings}>
+        <button class="group/button">
             <Bolt
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
             />

@@ -17,7 +17,7 @@ export class Widget {
 }
 
 class Setting {
-    value = null;
+    value = $state(null);
     name = "";
     description = "";
     constructor(name: string, description: string) {
@@ -27,7 +27,7 @@ class Setting {
 }
 
 export class NumericalSetting extends Setting {
-    value: number = null;
+    value: number = $state(null);
     constructor(name: string, description: string, defaultValue: number) {
         super(name, description);
         this.value = defaultValue;
@@ -35,7 +35,7 @@ export class NumericalSetting extends Setting {
 }
 
 export class BooleanSetting extends Setting {
-    value: boolean = null;
+    value: boolean = $state(null);
     constructor(name: string, description: string, defaultValue: boolean) {
         super(name, description);
         this.value = defaultValue;

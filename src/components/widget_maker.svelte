@@ -6,10 +6,12 @@
 
     // Import all widgets :3
     import Pomodoro from "./widgets/pomodoro.svelte";
+    import Clock from "./widgets/clock.svelte"
 
     // there has to be a better way
     let components = {
         pomodoro: Pomodoro,
+        clock: Clock,
     };
 
     $inspect(Workspace.widgets);

@@ -59,10 +59,10 @@
 >
     <!-- Floating tools (close, settings)-->
     <div
-        class="!scale-1 absolute bg-slate-800/75 -top-8 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center py-1 px-3 outline outline-1 outline-slate-600 rounded-full {!Workspace.editMode &&
+        class="!scale-1 absolute bg-slate-800/75 -top-8 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center py-1.5 px-3 outline outline-1 outline-slate-600 rounded-full flex flex-row gap-2 {!Workspace.editMode &&
             'hidden'}"
     >
-        <button class="group/button mr-2" onclick={close}>
+        <button class="group/button" onclick={close}>
             <X
                 class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
             />

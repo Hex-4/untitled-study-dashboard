@@ -6,12 +6,13 @@
         me = $bindable(),
         mySettings,
         children,
+        flexible = false,
         currentSettings = $bindable(),
     } = $props();
 
     import { Workspace } from "../../widgets.svelte.ts";
 
-    import { drag } from "../../subjx-svelte.svelte.js";
+    import { drag, warp_drag } from "../../subjx-svelte.svelte.js";
 
     import { scale } from "svelte/transition";
 
@@ -31,7 +32,7 @@
         }
     });
 
-    $inspect(currentSettings)
+    $inspect(currentSettings);
 
     function close() {
         let index = Workspace.widgets.indexOf(
@@ -46,15 +47,24 @@
         }
     }
 
-    $inspect(disabled);
+    $inspect(flexible);
+
+    let choice_drag = $state(drag)
+
+    if (flexible) {
+        choice_drag = warp_drag
+    } else {
+        choice_drag = drag
+    }
 </script>
 
 <div
-    use:drag
+    use:choice_drag
     {id}
     bind:this={me}
     transition:scale={{ duration: 300 }}
-    class="widget bg-slate-800/80 outline outline-1 outline-slate-600 rounded-2xl flex absolute before:transition-none backdrop-blur-sm group {disabled &&
+    class="widget bg-slate-800/80 outline outline-1 outline-slate-600 rounded-2xl
+    flex absolute before:transition-none backdrop-blur-sm group {disabled &&
         'hidden'}"
 >
     <!-- Floating tools (close, settings)-->

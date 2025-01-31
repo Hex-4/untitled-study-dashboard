@@ -1,0 +1,14 @@
+diff --git a/node_modules/@tadashi/svelte-editor-quill/dist/quill.js b/node_modules/@tadashi/svelte-editor-quill/dist/quill.js
+index ccaeab5..14e15f6 100644
+--- a/node_modules/@tadashi/svelte-editor-quill/dist/quill.js
++++ b/node_modules/@tadashi/svelte-editor-quill/dist/quill.js
+@@ -15,8 +15,7 @@ export function quill(node, cb, options) {
+ 		modules: {
+ 			toolbar,
+ 		},
+-		formats: ['header', 'bold', 'italic', 'underline', 'list', 'code-block'],
+-		placeholder: 'Enter the text...',
++		placeholder: 'type something...',
+ 		...restOptions,
+ 	})
+ 

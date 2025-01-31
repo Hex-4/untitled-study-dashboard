@@ -2,6 +2,7 @@
     // Import all widgets here
     import Pomodoro from "./widgets/pomodoro.svelte";
     import Clock from "./widgets/clock.svelte"
+    import Editor from "./widgets/editor.svelte"
 
     let { open = $bindable() } = $props();
     import { slide } from "svelte/transition";
@@ -30,6 +31,9 @@
         </button>
         <button onclick={() => newWidget("clock")}>
             <Clock disabled="true" />
+        </button>
+        <button onclick={() => newWidget("editor")}>
+            <Editor disabled="true" />
         </button>
     </div>
 </div>

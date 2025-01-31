@@ -29,11 +29,11 @@
         Workspace.editMode = !Workspace.editMode;
         Workspace.draggables.forEach((i) => {
             if (Workspace.editMode == true) {
+                let prevOptions = i.options
                 i.disable();
-                i.enable({
-                    scalable: true,
-                    proportions: true,
-                });
+
+                i.enable(prevOptions);
+
             } else if (Workspace.editMode == false) {
                 i.disable();
             }

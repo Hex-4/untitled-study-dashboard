@@ -24,3 +24,24 @@ export function drag(node) {
         },
     };
 }
+
+export function warp_drag(node) {
+    const xElem = subjx(node);
+    const xDraggable = xElem.drag({
+    });
+    if (Workspace.editMode == false) {
+        xDraggable.disable();
+    }
+    Workspace.draggables.push(xDraggable);
+
+    return {
+        destroy() {
+            xDraggable.disable();
+            const index = Workspace.draggables.indexOf(xDraggable);
+            if (index > -1) {
+                // only splice array when item is found
+                Workspace.draggables.splice(index, 1); // 2nd parameter means remove one item only
+            }
+        },
+    };
+}

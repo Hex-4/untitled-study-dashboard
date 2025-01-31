@@ -3,6 +3,7 @@
         X,
         Bolt,
         Play,
+        Pause,
         Dot,
         Circle,
         Diamond,
@@ -76,6 +77,7 @@
     let started = $state(false);
     let running = $state(false);
     var ding = new Audio("ding.mp3");
+    let interval;
 
     // Timer logic
     function startTimer() {
@@ -89,7 +91,7 @@
                 ).value;
                 document
                     .querySelector(
-                        "#period-indicator :nth-child(" +
+                        "#period-indicator svg:nth-child(" +
                             (currentPeriod + 1) +
                             ")",
                     )
@@ -97,9 +99,10 @@
                 var start = Date.now();
                 started = true;
                 running = true;
-                let interval = setInterval(function () {
+                var delta: number;
+                interval = setInterval(function () {
                     if (text && running) {
-                        var delta = Date.now() - start; // milliseconds elapsed since start
+                        delta = Date.now() - start; // milliseconds elapsed since start
                         const total = mins * 60 * 1000; //
                         let remaining = total - delta;
                         text.innerText = timeToText(remaining);
@@ -117,7 +120,9 @@
                             }
                         }
                     } else if (!running) {
-                        start = Date.now() - delta
+                        console.log("Before" + start + " " + delta);
+                        start = Date.now() - delta;
+                        console.log("After " + start + " " + delta);
                     }
                 }, 100);
             } else {
@@ -132,19 +137,23 @@
                 (s) => s.name === "Short break time (m)",
             ).value;
             var start = Date.now();
+            var delta: number;
             document
                 .querySelector(
-                    "#period-indicator :nth-child(" + currentPeriod + ")",
+                    "#period-indicator svg:nth-child(" + currentPeriod + ")",
                 )
                 .classList.remove("!text-slate-100"); // the one before
+
             document
                 .querySelector(
-                    "#period-indicator :nth-child(" + (currentPeriod + 1) + ")",
+                    "#period-indicator svg:nth-child(" +
+                        (currentPeriod + 1) +
+                        ")",
                 )
                 .classList.add("!text-slate-100");
-            let interval = setInterval(function () {
+            interval = setInterval(function () {
                 if (text && running) {
-                    var delta = Date.now() - start; // milliseconds elapsed since start
+                    delta = Date.now() - start; // milliseconds elapsed since start
                     const total = mins * 60 * 1000; //
                     let remaining = total - delta;
                     text.innerText = timeToText(remaining);
@@ -156,7 +165,7 @@
                         getToWork();
                     }
                 } else if (!running) {
-                    start = Date.now() - delta
+                    start = Date.now() - delta;
                 }
             }, 100);
         }
@@ -168,19 +177,35 @@
                 (s) => s.name === "Work time (m)",
             ).value;
             var start = Date.now();
+            var delta: number;
+            if (currentPeriod == 0) {
+                document
+                    .querySelector(
+                        "#period-indicator svg:nth-child(" +
+                            (periods + 1) +
+                            ")",
+                    )
+                    .classList.remove("!text-slate-100");
+            } else {
+                document
+                    .querySelector(
+                        "#period-indicator svg:nth-child(" +
+                            currentPeriod +
+                            ")",
+                    )
+                    .classList.remove("!text-slate-100"); // the one before
+            }
+
             document
                 .querySelector(
-                    "#period-indicator :nth-child(" + currentPeriod + ")",
-                )
-                .classList.remove("!text-slate-100"); // the one before
-            document
-                .querySelector(
-                    "#period-indicator :nth-child(" + (currentPeriod + 1) + ")",
+                    "#period-indicator svg:nth-child(" +
+                        (currentPeriod + 1) +
+                        ")",
                 )
                 .classList.add("!text-slate-100");
-            let interval = setInterval(function () {
+            interval = setInterval(function () {
                 if (text && running) {
-                    var delta = Date.now() - start; // milliseconds elapsed since start
+                    delta = Date.now() - start; // milliseconds elapsed since start
                     const total = mins * 60 * 1000; //
                     let remaining = total - delta;
                     text.innerText = timeToText(remaining);
@@ -199,7 +224,7 @@
                         }
                     }
                 } else if (!running) {
-                    start = Date.now() - delta
+                    start = Date.now() - delta;
                 }
             }, 100);
         }
@@ -211,19 +236,22 @@
                 (s) => s.name === "Long break time (m)",
             ).value;
             var start = Date.now();
+            var delta: number;
             document
                 .querySelector(
-                    "#period-indicator :nth-child(" + currentPeriod + ")",
+                    "#period-indicator svg:nth-child(" + currentPeriod + ")",
                 )
                 .classList.remove("!text-slate-100"); // the one before
             document
                 .querySelector(
-                    "#period-indicator :nth-child(" + (currentPeriod + 1) + ")",
+                    "#period-indicator svg:nth-child(" +
+                        (currentPeriod + 1) +
+                        ")",
                 )
                 .classList.add("!text-slate-100");
-            let interval = setInterval(function () {
+            interval = setInterval(function () {
                 if (text && running) {
-                    var delta = Date.now() - start; // milliseconds elapsed since start
+                    delta = Date.now() - start; // milliseconds elapsed since start
                     const total = mins * 60 * 1000; //
                     let remaining = total - delta;
                     text.innerText = timeToText(remaining);
@@ -232,11 +260,35 @@
                         clearInterval(interval);
                         currentPeriod = 0;
                         periodType = "work";
+                        getToWork();
                     }
                 } else if (!running) {
-                    start = Date.now() - delta
+                    start = Date.now() - delta;
                 }
             }, 100);
+        }
+    }
+
+    function skipPeriod() {
+        clearInterval(interval);
+        if (periodType == "work") {
+            if (currentPeriod == periods - 1) {
+                currentPeriod++;
+                periodType = "long";
+                longBreak();
+            } else {
+                currentPeriod++;
+                periodType = "short";
+                shortBreak();
+            }
+        } else if (periodType == "short") {
+            currentPeriod++;
+            periodType = "work";
+            getToWork();
+        } else if (periodType == "long") {
+            currentPeriod = 0;
+            periodType = "work";
+            getToWork();
         }
     }
 
@@ -276,9 +328,15 @@
             class="content-center ml-2 p-0.5 rounded-full px-2 group/button bg-slate-700 my-auto flex"
             onclick={startTimer}
         >
-            <Play
-                class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
-            />
+            {#if running}
+                <Pause
+                    class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
+                />
+            {:else}
+                <Play
+                    class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
+                />
+            {/if}
         </button>
 
         <div
@@ -305,7 +363,7 @@
 
         <button
             class="content-center mr-2 p-0.5 rounded-full px-2 group/button bg-slate-700 my-auto flex"
-            onclick={startTimer}
+            onclick={skipPeriod}
         >
             <ChevronLast
                 class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
@@ -322,13 +380,51 @@
     </div>
 
     <div
-        class="bg-slate-800 min-w-full h-10 absolute bottom-0 rounded-b-2xl flex align-middle"
+        class="bg-slate-800 min-w-full h-10 absolute bottom-0 rounded-b-2xl flex align-middle justify-between"
     >
         <button
-            class="content-center ml-2 p-0.5 rounded-full px-2 group/button bg-slate-700 my-auto"
+            class="content-center ml-2 p-0.5 rounded-full px-2 group/button bg-slate-700 my-auto flex"
+            onclick={startTimer}
         >
-            <Play
-                class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
+            {#if running}
+                <Pause
+                    class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
+                />
+            {:else}
+                <Play
+                    class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
+                />
+            {/if}
+        </button>
+
+        <div
+            class="flex content-center self-center gap-1"
+            id="period-indicator"
+        >
+            {#each Array.from({ length: currentSettings.find((s) => s.name === "Cycles").value }, (x, i) => i) as c}
+                {@const cycles = Array.from(
+                    {
+                        length: currentSettings.find((s) => s.name === "Cycles")
+                            .value,
+                    },
+                    (x, i) => i,
+                )}
+                <Circle class="text-slate-500 size-5 before:text-slate-100" />
+                {#if cycles[cycles.length - 1] != c}
+                    <CircleDotDashed
+                        class="text-slate-500 size-5 before:text-slate-100"
+                    />
+                {/if}
+            {/each}
+            <Diamond class="text-slate-500 size-5 before:text-slate-100" />
+        </div>
+
+        <button
+            class="content-center mr-2 p-0.5 rounded-full px-2 group/button bg-slate-700 my-auto flex"
+            onclick={skipPeriod}
+        >
+            <ChevronLast
+                class="text-slate-100 size-6 inline relative  transition-all group-hover/button:text-amber-500 group-hover/button:scale-[1.2]"
             />
         </button>
     </div>

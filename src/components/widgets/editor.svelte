@@ -10,10 +10,12 @@
 
     const toolbarOptions = [
         [{ header: ["1", "2", "3", false] }],
+        [{ size: [ 'small', false, 'large', 'huge' ]}],
         ["bold", "italic", "underline", "link"],
         [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
         [{ color: [] }, { background: [] }], // dropdown with defaults from theme
         [{ align: [] }],
+        
 
         ["clean"],
     ];
@@ -53,14 +55,9 @@
 </Widget>
 
 {#snippet inactive()}
-    <div class="w-full h-full p-8">
-        <div class="content-center">
-            <h1 class="text-7xl font-mono font-bold text-slate-100">03:14</h1>
-            <p
-                class="text-2xl font-bold text-slate-400 text-center w-full mt-2"
-            >
-                AM
-            </p>
-        </div>
+    <div class="flex w-[316px] h-72 p-4">
+        <Editor class="text-slate-100 text-pretty" {options} {onTextChange}
+            ></Editor
+        >
     </div>
 {/snippet}

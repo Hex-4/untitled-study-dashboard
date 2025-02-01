@@ -3,13 +3,15 @@ import BaseLayout from "../layouts/base.astro";
 import Bar from "../components/bar.svelte";
 import Pomodoro from "../components/widgets/pomodoro.svelte";
 import WidgetMaker from "../components/widget_maker.svelte";
+import { Workspace } from "../widgets.svelte.ts";
 ---
 
 <BaseLayout>
     <div
-        class="min-w-screen min-h-screen bg-gradient-to-bl from-sky-500 via-blue-700 to-indigo-700 p-1 background"
+        class="min-w-screen min-h-screen bg-center bg-cover p-1 background" id="bg-image"
     >
         <Bar client:only />
         <WidgetMaker client:only />
     </div>
 </BaseLayout>
+

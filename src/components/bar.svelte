@@ -10,6 +10,7 @@
     } from "lucide-svelte";
     import WidgetPicker from "./widget_picker.svelte";
     import { Workspace, Widget } from "../widgets.svelte.ts";
+    import GlobalSettingsBox from "./settings/global_settings_box.svelte"
 
     let barOpen = $state(true);
     let PickerOpen = $state(false);
@@ -18,6 +19,10 @@
         barOpen = !barOpen;
         PickerOpen = false;
         console.log("Bar toggled!");
+    }
+
+    function toggleSettings() {
+        Workspace.globalSettingsOpen = !Workspace.globalSettingsOpen;
     }
 
     function newPomo() {
@@ -29,11 +34,10 @@
         Workspace.editMode = !Workspace.editMode;
         Workspace.draggables.forEach((i) => {
             if (Workspace.editMode == true) {
-                let prevOptions = i.options
+                let prevOptions = i.options;
                 i.disable();
 
                 i.enable(prevOptions);
-
             } else if (Workspace.editMode == false) {
                 i.disable();
             }
@@ -80,7 +84,7 @@
 
     <button
         class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700"
-        onclick={newPomo}
+        onclick={toggleSettings}
     >
         <Settings
             class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"
@@ -104,4 +108,8 @@
 
 {#if PickerOpen}
     <WidgetPicker bind:open={PickerOpen} />
+{/if}
+
+{#if Workspace.globalSettingsOpen}
+    <GlobalSettingsBox/>
 {/if}

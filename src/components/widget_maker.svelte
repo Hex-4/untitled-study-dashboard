@@ -3,6 +3,7 @@
     import subjx from "subjx";
     import "subjx/dist/style/subjx.css";
     import SettingsBox from "./settings/settings_box.svelte";
+    import { GlobalSetting } from "../widgets.svelte.ts";
 
     // Import all widgets :3
     import Pomodoro from "./widgets/pomodoro.svelte";
@@ -15,6 +16,19 @@
         clock: Clock,
         editor: Editor,
     };
+
+    Workspace.globalSettings.push(
+        new GlobalSetting("Background image URL", "A URL to set the background image to.", "https://cloud-k2ejdyfk3-hack-club-bot.vercel.app/0854164.jpg")
+    )
+
+    // Update background
+    $effect(() => {
+        console.log(Workspace.globalSettings.find((s) => s.name === "Background image URL").value)
+        console.log(document.getElementById("bg-image").style.backgroundImage)
+		document.getElementById("bg-image").style.backgroundImage = "url(" + Workspace.globalSettings.find((s) => s.name === "Background image URL").value + ")"
+	});
+
+    
 
     $inspect(Workspace.widgets);
     $inspect(Workspace.draggables);

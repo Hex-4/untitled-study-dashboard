@@ -7,13 +7,18 @@
         ChevronRight,
         Pencil,
         PencilOff,
+        Maximize,
+        Minimize,
     } from "lucide-svelte";
     import WidgetPicker from "./widget_picker.svelte";
     import { Workspace, Widget } from "../widgets.svelte.ts";
-    import GlobalSettingsBox from "./settings/global_settings_box.svelte"
+    import GlobalSettingsBox from "./settings/global_settings_box.svelte";
+    import screenfull from "screenfull";
 
     let barOpen = $state(true);
     let PickerOpen = $state(false);
+
+    let fullscreen = $state(false)
 
     function toggleBar() {
         barOpen = !barOpen;
@@ -43,6 +48,15 @@
             }
         });
     }
+
+    function toggleFS() {
+        if (screenfull.isEnabled) {
+            screenfull.toggle()
+            fullscreen = !fullscreen
+        } else {
+            console.log("Not enabled!")
+        }
+    }
 </script>
 
 <div
@@ -52,10 +66,17 @@
 >
     <button
         class="bg-slate-800 rounded-full m-1 px-3 content-center group transition-all hover:bg-slate-700"
+        onclick={toggleFS}
     >
-        <Menu
-            class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"
-        />
+        {#if fullscreen}
+            <Minimize
+                class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"
+            />
+        {:else}
+            <Maximize
+                class="text-slate-100 size-5 inline relative bottom-0.5 transition-all group-hover:text-amber-500 group-hover:scale-[1.2]"
+            />
+        {/if}
     </button>
 
     <button
@@ -111,5 +132,5 @@
 {/if}
 
 {#if Workspace.globalSettingsOpen}
-    <GlobalSettingsBox/>
+    <GlobalSettingsBox />
 {/if}

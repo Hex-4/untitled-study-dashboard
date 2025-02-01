@@ -1,8 +1,9 @@
 <script>
     // Import all widgets here
     import Pomodoro from "./widgets/pomodoro.svelte";
-    import Clock from "./widgets/clock.svelte"
-    import Editor from "./widgets/editor.svelte"
+    import Clock from "./widgets/clock.svelte";
+    import Editor from "./widgets/editor.svelte";
+    import Quotes from "./widgets/quotes.svelte";
 
     let { open = $bindable() } = $props();
     import { slide } from "svelte/transition";
@@ -26,15 +27,26 @@
     <hr class="border-t border-slate-400" />
     <!-- One for each widget -->
     <div class="grid gap-3 mt-2 grid-cols-2">
-        <button onclick={() => newWidget("pomodoro")}>
-            <Pomodoro disabled="true" />
-        </button>
-        <button onclick={() => newWidget("clock")}>
-            <Clock disabled="true" />
-        </button>
-        <button onclick={() => newWidget("editor")}>
-            <Editor disabled="true" />
-        </button>
+        <div>
+            <button onclick={() => newWidget("pomodoro")}>
+                <Pomodoro disabled="true" />
+            </button>
+        </div>
+        <div>
+            <button onclick={() => newWidget("clock")}>
+                <Clock disabled="true" />
+            </button>
+        </div>
+        <div>
+            <button onclick={() => newWidget("editor")}>
+                <Editor disabled="true" />
+            </button>
+        </div>
+        <div class="w-[400px]">
+            <button onclick={() => newWidget("quotes")}>
+                <Quotes disabled="true" />
+            </button>
+        </div>
     </div>
 </div>
 

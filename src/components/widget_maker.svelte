@@ -9,16 +9,18 @@
     import Pomodoro from "./widgets/pomodoro.svelte";
     import Clock from "./widgets/clock.svelte";
     import Editor from "./widgets/editor.svelte";
+    import Quotes from "./widgets/quotes.svelte"
 
     // there has to be a better way
     let components = {
         pomodoro: Pomodoro,
         clock: Clock,
         editor: Editor,
+        quotes: Quotes,
     };
 
     Workspace.globalSettings.push(
-        new GlobalSetting("Background image URL", "A URL to set the background image to.", "https://cloud-k2ejdyfk3-hack-club-bot.vercel.app/0854164.jpg")
+        new GlobalSetting("Background image URL", "A URL to set the background image to.", "https://images.alphacoders.com/126/thumb-1920-1268349.png")
     )
 
     // Update background

@@ -6,9 +6,6 @@
 
     let s = $derived(Workspace.globalSettings)
 
-    Workspace.globalSettings.push(
-        new GlobalSetting("Background image URL", "A URL to set the background image to.", "https://cloud-k2ejdyfk3-hack-club-bot.vercel.app/0854164.jpg")
-    )
 </script>
 
 

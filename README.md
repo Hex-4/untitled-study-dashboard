@@ -40,7 +40,7 @@ Mosaic is a weird mishmash of [Svelte](https://svelte.dev) and [Astro](https://a
 
 The code is a mess, but a general overview is that a widget template is defined, which widgets slot into and extend. Then, the widget picker adds the widget to a shared list, which is then looped over and instantiated in a parent component. Settings works by having a shared array of settings - when the settings icon on a widget is clicked, it sets the array to its settings and the settings box reads from that. There was probably a much better way to do that but hey, it works!
 
-If you're me from the future (unlikely) or want to run a dev server and check out my terrible code (also unlikely), I suggest [Bun](https://bun.sh). Simply:
+If you're me from the future (unlikely) or want to run a dev server and check out my terrible code (also unlikely), I suggest [Bun](https://bun.sh). Simply run:
 
 ```sh
 bun i
